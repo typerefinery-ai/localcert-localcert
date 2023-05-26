@@ -1,4 +1,4 @@
-module github.com/lann/localcert
+module github.com/wildone/localcert
 
 go 1.17
 

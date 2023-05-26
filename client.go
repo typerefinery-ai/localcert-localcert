@@ -15,7 +15,7 @@ import (
 	"golang.org/x/crypto/acme"
 	"gopkg.in/square/go-jose.v2"
 
-	"github.com/lann/localcert/internal/acmeutil"
+	"github.com/wildone/localcert/internal/acmeutil"
 )
 
 const defaultUserAgent = "localcert/1.0"

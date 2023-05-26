@@ -8,10 +8,10 @@ to make local development with a valid TLS certificate quick and easy.
 Localcert is a normal Go CLI tool. It can be installed with a working Go developer env with:
 
 ```sh
-go install github.com/lann/localcert/cmd/localcert@latest
+go install github.com/wildone/localcert/cmd/localcert@latest
 ```
 
-You can also download a [release](https://github.com/lann/localcert/releases) binary.
+You can also download a [release](https://github.com/wildone/localcert/releases) binary.
 
 ## Usage
 
@@ -28,3 +28,27 @@ for your use. The Localcert DNS server will respond to certain subdomains of you
     * `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` (private networks)
     * `169.254.0.0/16` (link-local addresses)
     * `127.0.0.0/8` (loopback addresses)
+
+### Params
+
+```
+Usage of C:\projects\github\localcert\bin\localcert.exe:
+  -acceptTerms
+        accept ACME provider's terms of service
+  -acmeAccount string
+        path to ACME account file
+  -acmeUrl string
+        ACME directory URL
+  -dataDir string
+        default data directory
+  -forceRenew
+        force renewel of certificate with > 30 days until expiration
+  -localCert string
+        path to localcert certificate
+  -localKey string
+        path to localcert certificate key
+  -serverUrl string
+        localcert server URL (default "https://api.localcert.dev")
+  -testPort int
+        port for test server (default 8443)
+```

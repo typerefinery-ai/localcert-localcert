@@ -12,7 +12,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/lann/localcert"
+	"github.com/wildone/localcert"
 )
 
 var flagForceRenew = flag.Bool("forceRenew", false, "force renewel of certificate with > 30 days until expiration")
@@ -34,6 +34,7 @@ func Provision() {
 	var certDomain string
 	if cert != nil {
 		certDomain = cert.Subject.CommonName
+		WriteDomainFile(certDomain)
 		fmt.Printf("Found existing certificate for domain %q\n", certDomain)
 		if !*flagForceRenew {
 			expiresIn := time.Until(cert.NotAfter)
@@ -68,6 +69,7 @@ func Provision() {
 	}
 
 	domain, err := client.GetDomain()
+	WriteDomainFile(certDomain)
 	if err != nil {
 		log.Fatal("Error getting localcert domain name: ", err)
 	}

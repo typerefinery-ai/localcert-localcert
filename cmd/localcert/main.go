@@ -4,7 +4,7 @@ import (
 	"flag"
 	"log"
 
-	"github.com/lann/localcert/internal/cli"
+	"github.com/wildone/localcert/internal/cli"
 )
 
 func main() {

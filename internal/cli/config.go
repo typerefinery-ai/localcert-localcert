@@ -13,7 +13,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/lann/localcert"
+	"github.com/wildone/localcert"
 	"golang.org/x/crypto/acme"
 	"gopkg.in/square/go-jose.v2"
 )
@@ -136,6 +136,21 @@ func (c *Config) Client() *localcert.Client {
 		ACMEDirectoryURL:   c.ACME.DirectoryURL,
 		LocalCertServerURL: c.ServerURL,
 	}.Client()
+}
+
+func WriteDomainFile(domain string) error {
+	dataDir := *flagDataDir
+	domainfile := filepath.Join(dataDir, "domain")
+	f, err := os.Create(domainfile)
+
+	if err != nil {
+        return fmt.Errorf("encode: %w", err)
+    }
+
+	f.WriteString(domain)
+	f.Close()
+	return nil
+	
 }
 
 func (c *Config) WriteACMEAccountFile() error {
