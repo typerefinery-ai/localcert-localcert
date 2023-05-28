@@ -80,10 +80,18 @@ func Provision() {
 		fmt.Printf("  New domain: %q\n\n", domain)
 	}
 
-	fmt.Printf("Provisioning domain %q...\n", domain)
+	if !*flagForceRenew {
+		fmt.Printf("Provisioning domain %q...\n", domain)
+	} else {
+		fmt.Printf("Reprovisioning domain %q...\n", domain)
+	}
 	order, err := client.ProvisionDomain(ctx, domain)
 	if err != nil {
-		log.Fatal("Error provisioning domain: ", err)
+		if !*flagForceRenew {
+			log.Fatal("Error provisioning domain: ", err)
+		} else {
+			log.Fatal("Error reprovisioning domain: ", err)
+		}
 	}
 
 	certKey, err := config.ReadOrGenerateCertificateKey()
