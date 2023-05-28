@@ -8,9 +8,12 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/json"
+	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
+	"net/http/httputil"
 
 	"golang.org/x/crypto/acme"
 	"gopkg.in/square/go-jose.v2"
@@ -19,6 +22,9 @@ import (
 )
 
 const defaultUserAgent = "localcert/1.0"
+
+var flagDebug = flag.Bool("debug", false, "show debug statments.")
+
 
 type Config struct {
 	ACMEPrivateKey   crypto.Signer
@@ -153,16 +159,45 @@ func (c *Client) GetCertificate(ctx context.Context, order *acme.Order, certKey 
 
 func (c *Client) localcertPost(urlSuffix string, req interface{}, res interface{}) error {
 	url := c.serverURL + urlSuffix
+	if *flagDebug {
+		fmt.Println("json url: ", url)
+	}
 	body, err := json.Marshal(req)
 	if err != nil {
-		return fmt.Errorf("json encode: %w", err)
+		return fmt.Errorf("json encode: %s", err)
 	}
+
+	if *flagDebug {
+		b, err := ioutil.ReadAll(bytes.NewReader(body))
+		fmt.Println("json req: ", string(b), err)
+	}
+	// var resp http.Response
+	// var err error 
 	resp, err := c.acmeClient.HTTPClient.Post(url, "application/json", bytes.NewReader(body))
+
 	if err != nil {
 		return err
 	}
+
+	if *flagDebug {
+		fmt.Println("json resp: ", resp)
+	}
+
+	if *flagDebug {
+		d, err := httputil.DumpResponse(resp, true)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		fmt.Println(string(d))
+	}
+
 	defer resp.Body.Close()
 	if statusErr := acmeutil.ErrorFromResponse(resp); statusErr != nil {
+		if *flagDebug {
+			fmt.Println("json statusErr: ", statusErr)
+			body, err := ioutil.ReadAll(resp.Body)
+			fmt.Println("json body: ", string(body), err)
+		}	
 		return statusErr
 	}
 
