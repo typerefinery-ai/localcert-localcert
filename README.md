@@ -53,7 +53,9 @@ Usage of C:\projects\github\localcert\bin\localcert.exe:
         port for test server (default 8443)
 ```
 
-Existing
+# Output
+
+## Existing
 
 ```
 Found existing certificate for domain "*.wxsm3zde4rwj2j2eimuhfwpgni.user.localcert.dev"
@@ -65,14 +67,19 @@ Certificate (chain):  C:\projects\github\localcert\\data\\cert.pem
 Certificate privkey:  C:\projects\github\localcert\\data\\key.pem
 ```
 
-Force Provision
+## Force Provision
 
 ```
 Found existing certificate for domain "*.wxsm3zde4rwj2j2eimuhfwpgni.user.localcert.dev"
 Provisioning domain "*.wxsm3zde4rwj2j2eimuhfwpgni.user.localcert.dev"...
+
+Certificate expires 2023-08-24 00:33:15 +0000 UTC
+
+Certificate (chain):  C:\projects\github\localcert\\data\\cert.pem
+Certificate privkey:  C:\projects\github\localcert\\data\\key.pem
 ```
 
-Create 
+## Create 
 
 ```
 Provisioning domain "*.j6liixjthh7wfankaazyq3f36m.user.localcert.dev"...
